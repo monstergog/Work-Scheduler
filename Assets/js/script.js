@@ -1,4 +1,5 @@
 var rootEl = $('#root');
+var resultEl = $('#result');
 var schedule = [];
 
 $(function () {
@@ -11,9 +12,18 @@ $(function () {
       note: $(this).siblings('textarea').val()
     }
 
-    binarySearchSort(task);
+    var timeBlock = $('#' + task.time).children('div').text();
 
-    localStorage.setItem('schedule', JSON.stringify(schedule));
+    if (confirm('Are you sure you would like to save?')) {
+      binarySearchSort(task);
+
+      localStorage.setItem('schedule', JSON.stringify(schedule));
+      resultEl.text(`✔️:\n\nNew Task Saved to ${timeBlock} Block`);
+      resultEl.attr('style', 'visibility: visible');
+    } else {
+      resultEl.text(`❌:\n\nCanceled Save to ${timeBlock} Block`);
+      resultEl.attr('style', 'visibility: visible');
+    }
   })
   
   // Color codes each time block depending on past, present, or future
