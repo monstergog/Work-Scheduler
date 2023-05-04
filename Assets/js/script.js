@@ -1,3 +1,5 @@
+var schedule = [];
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -6,7 +8,7 @@ $(function () {
   
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
-  var schedule = [];
+  
   
   // local storage. HINT: What does `this` reference in the click listener
   // function? How can DOM traversal be used to get the "hour-x" id of the
@@ -17,23 +19,9 @@ $(function () {
       time: $(this).parent().attr('id').slice(5),
       note: $(this).siblings('textarea').val()
     }
-    if (schedule == ''  ) {
-      schedule.push(task);
-      console.log(schedule);
-      console.log('Middle: ' + Math.floor(schedule.length / 2));
-    } else if (schedule[Math.floor(schedule.length / 2)].time === task.time) {
-      console.log('Middle: ' + Math.floor(schedule.length / 2));
-      schedule[Math.floor(schedule.length / 2)] = task;
-      console.log('replaced', schedule);
-    } else if (schedule[Math.floor(schedule.length / 2)].time < task.time) {
-      console.log('Middle: ' + Math.floor(schedule.length / 2));
-      schedule.splice(schedule[Math.floor(schedule.length / 2)], 0, task);
-      console.log('added before', schedule);
-    } else {
-      console.log('Middle: ' + Math.floor(schedule.length / 2));
-      schedule.splice(schedule[Math.floor(schedule.length / 2 + 1)], 0, task);
-      console.log('added after', schedule);
-    }
+    
+    binarySearchSort(task);
+
     
     // localStorage.setItem('schedule', schedule);
   })
@@ -54,3 +42,31 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
   
 });
+
+// Binary search and sort algorithm
+function binarySearchSort(newTask) {
+  let startIndex = 0;
+  let endIndex = schedule.length - 1;
+  let insertIndex = endIndex + 1;
+
+  while (startIndex <= endIndex) {
+    const midIndex = Math.floor((startIndex + endIndex) / 2);
+
+    if (parseInt(newTask.time) <= parseInt(schedule[midIndex].time)) {
+      insertIndex = midIndex;
+      endIndex = midIndex - 1;
+    } else {
+      startIndex = midIndex + 1;
+    }
+  }
+  console.log('Insert index element: ', schedule[insertIndex]);
+  console.log('Insert index position: ' + insertIndex);
+  console.log('To be inserted ' + newTask.time);
+  if (schedule.length != insertIndex && parseInt(schedule[insertIndex].time) === parseInt(newTask.time)) {
+    schedule.splice(insertIndex, 1, newTask);
+    console.log('Replaced: ', schedule);
+  } else {
+    schedule.splice(insertIndex, 0, newTask);
+    console.log(schedule)
+  }
+}
