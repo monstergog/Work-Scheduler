@@ -5,8 +5,6 @@ var schedule = [];
 // in the html.
 $(function () {
   initSchedule();
-
-  $('#currentDay').text(dayjs().format('[Today is: ]dddd, MMMM D[th]'));
   
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -16,7 +14,7 @@ $(function () {
   // useful when saving the description in local storage?
   $('button').click(function() {
     var task = {
-      time: $(this).parent().attr('id').slice(5),
+      time: $(this).parent().attr('id'),
       note: $(this).siblings('textarea').val()
     }
     
@@ -37,10 +35,15 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  
+  for (var i = 0; i < schedule.length; i++) {
+    let time = schedule[i].time;
+    let note = schedule[i].note;
+
+    $('#' + time).children('textarea').val(note);
+  }
 
   // TODO: Add code to display the current date in the header of the page.
-  
+  $('#currentDay').text(dayjs().format('[Today is: ]dddd, MMMM D[th]'));
 });
 
 // Binary search and sort algorithm
@@ -52,14 +55,14 @@ function binarySearchSort(newTask) {
   while (startIndex <= endIndex) {
     const midIndex = Math.floor((startIndex + endIndex) / 2);
 
-    if (parseInt(newTask.time) <= parseInt(schedule[midIndex].time)) {
+    if (parseInt(newTask.time.slice(5)) <= parseInt(schedule[midIndex].time.slice(5))) {
       insertIndex = midIndex;
       endIndex = midIndex - 1;
     } else {
       startIndex = midIndex + 1;
     }
   }
-  if (schedule.length != insertIndex && parseInt(schedule[insertIndex].time) === parseInt(newTask.time)) {
+  if (schedule.length != insertIndex && schedule[insertIndex].time === newTask.time) {
     schedule.splice(insertIndex, 1, newTask);
   } else {
     schedule.splice(insertIndex, 0, newTask);
