@@ -1,5 +1,21 @@
+# Work-Scheduler
 
+## Description
 
+A simple calender app to help in organizing your work day schedule
+
+## Installation
+
+Once the repo has been downloaded, you can open the webpage by opening on the index.html file.
+
+## Usage
+
+Each time block is an hour apart and is color coded to represent if the correpsonding time block has passed (Grey), is current (Red), or still in the future (Green)
+After entering your task into a time block text field, press button to the right to save your task to the schedule.
+
+![Work-Scheduler-Screenshot](assets/images/screenshot.png)
+
+## Credits
 
 Binary Search Sort function based off of ChatGPT function:
 ```javascript
@@ -25,3 +41,9 @@ function insertIntoSortedArray(array, ...newElements) {
   return array;
 }
 ```
+
+## License
+
+N/A
+
+---
