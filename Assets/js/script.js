@@ -5,7 +5,7 @@ var schedule = [];
 // in the html.
 $(function () {
   initSchedule();
-  
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -17,7 +17,7 @@ $(function () {
       time: $(this).parent().attr('id'),
       note: $(this).siblings('textarea').val()
     }
-    
+
     binarySearchSort(task);
 
     console.log('After Sort: ', schedule)
