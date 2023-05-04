@@ -16,12 +16,6 @@ SO THAT I can manage my time effectively
 
 ## Acceptance Criteria
 
-```md
-GIVEN I am using a daily planner to create a schedule
-WHEN I scroll down
-THEN I am presented with timeblocks for standard business hours
-WHEN I view the timeblocks for that day
-THEN each timeblock is color coded to indicate whether it is in the past, present, or future
 ```
 
 The following animation demonstrates the application functionality:
