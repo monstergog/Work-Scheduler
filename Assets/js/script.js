@@ -4,6 +4,7 @@ var schedule = [];
 $(function () {
   initSchedule();
 
+  // Event listener for saving schedule to local storage
   $('button').click(function() {
     var task = {
       time: $(this).parent().attr('id'),
@@ -12,10 +13,10 @@ $(function () {
 
     binarySearchSort(task);
 
-    console.log('After Sort: ', schedule)
     localStorage.setItem('schedule', JSON.stringify(schedule));
   })
   
+  // Color codes each time block depending on past, present, or future
   for (var i = 9; i <= 17; i++) {
     if (i < parseInt(dayjs().format('H'))) {
       rootEl.children('#hour-' + i).addClass('past');
@@ -26,6 +27,7 @@ $(function () {
     }
   }
 
+  // Renders all scheduled tasks to the screen 
   for (var i = 0; i < schedule.length; i++) {
     let time = schedule[i].time;
     let note = schedule[i].note;
@@ -33,10 +35,11 @@ $(function () {
     $('#' + time).children('textarea').val(note);
   }
 
+  // Renders current date above the schedule
   $('#currentDay').text(dayjs().format('[Today is: ]dddd, MMMM D[th]'));
 });
 
-// Binary search and sort algorithm
+// Binary search and sort algorithm function to sort and add newly scheduled tasks
 function binarySearchSort(newTask) {
   let startIndex = 0;
   let endIndex = schedule.length - 1;
@@ -66,5 +69,4 @@ function initSchedule() {
   if (storedSchedule != null) {
     schedule = storedSchedule;
   }
-  console.log('Initial Schedule: ', schedule);
 }
