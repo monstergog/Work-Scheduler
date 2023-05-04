@@ -13,7 +13,7 @@ Once the repo has been downloaded, you can open the webpage by opening on the in
 Each time block is an hour apart and is color coded to represent if the correpsonding time block has passed (Grey), is current (Red), or still in the future (Green)
 After entering your task into a time block text field, press button to the right to save your task to the schedule.
 
-![Work-Scheduler-Screenshot](assets/images/screenshot.png)
+![Work-Scheduler-Screenshot](Assets/images/screenshot.png)
 
 ## Credits
 
