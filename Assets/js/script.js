@@ -4,12 +4,12 @@ var schedule = [];
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+  initSchedule();
+
   $('#currentDay').text(dayjs().format('[Today is: ]dddd, MMMM D[th]'));
   
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
-  
-  
   // local storage. HINT: What does `this` reference in the click listener
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
@@ -22,8 +22,8 @@ $(function () {
     
     binarySearchSort(task);
 
-    
-    // localStorage.setItem('schedule', schedule);
+    console.log('After Sort: ', schedule)
+    localStorage.setItem('schedule', JSON.stringify(schedule));
   })
   
 
@@ -59,14 +59,19 @@ function binarySearchSort(newTask) {
       startIndex = midIndex + 1;
     }
   }
-  console.log('Insert index element: ', schedule[insertIndex]);
-  console.log('Insert index position: ' + insertIndex);
-  console.log('To be inserted ' + newTask.time);
   if (schedule.length != insertIndex && parseInt(schedule[insertIndex].time) === parseInt(newTask.time)) {
     schedule.splice(insertIndex, 1, newTask);
-    console.log('Replaced: ', schedule);
   } else {
     schedule.splice(insertIndex, 0, newTask);
-    console.log(schedule)
   }
+}
+
+// Initialize schedule from local storage
+function initSchedule() {
+  var storedSchedule = JSON.parse(localStorage.getItem('schedule'));
+
+  if (storedSchedule != null) {
+    schedule = storedSchedule;
+  }
+  console.log('Initial Schedule: ', schedule);
 }
